@@ -1,4 +1,4 @@
-name: upload buckets3
+name: create-and-upload-bucket
 
 on:
   push:
@@ -9,11 +9,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout the repository
       - uses: actions/checkout@v2
-      - uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete --exclude '.git*/*'
+
+      # Step 2: Install AWS CLI
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      # Step 3: Create S3 bucket
+      - name: Create S3 bucket
+        run: |
+          aws s3api create-bucket --bucket group666 --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ASIA3AWNGJFYWSAATR2T
+          AWS_SECRET_ACCESS_KEY: YEmWybLIWgMnfPTz9QqRevd2z4doDPg5KwiuOgba
