@@ -21,7 +21,7 @@ jobs:
       # Step 3: Create S3 bucket
       - name: Create S3 bucket
         run: |
-          aws s3api create-bucket --bucket group666 --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
+          aws s3api create-bucket --bucket bigdata113 --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1
         env:
           AWS_ACCESS_KEY_ID: ASIA3AWNGJFYWSAATR2T
           AWS_SECRET_ACCESS_KEY: YEmWybLIWgMnfPTz9QqRevd2z4doDPg5KwiuOgba
