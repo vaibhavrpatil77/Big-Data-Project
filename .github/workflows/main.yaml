@@ -1,23 +1,36 @@
-name: Upload we
+name: combine
 
 on:
   push:
-    branches:
-      - main
+    branches: [master]
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Sync to S3
+      - name: Upload to S3
         run: |
-          aws s3 mb s3://bigdata113
-
+          aws s3 cp .github/workflows/manisha.txt s3://bigdata113/
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Deploy CloudFormation stack
+        run: |
+          aws cloudformation deploy \
+            --stack-name creationstack \
+            --template-file .github/workflows/S3creation.yaml \
+            --capabilities CAPABILITY_NAMED_IAM
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
+          
