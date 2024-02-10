@@ -1,4 +1,4 @@
-name: upload buckets3
+name: Upload we
 
 on:
   push:
@@ -9,11 +9,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete --exclude '.git*/*'
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Sync to S3
+        run: |
+          aws s3 mb s3://bigdata113
+
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ASIA3AWNGJFYWSAATR2T
+          AWS_SECRET_ACCESS_KEY: YEmWybLIWgMnfPTz9QqRevd2z4doDPg5KwiuOgba
+          AWS_SESSION_TOKEN: FwoGZXIvYXdzEDIaDFMuQjUEj51xSzM+AiLOASdUJ+G2R1D3iSDs1BoCMLWVMrp4SiRoPr5UPeg8lEBwjG2RkNbZxlHTeBjCct9XhSW+EraS9zvuPvJCX8OmilbMzroa8l6ItEGUmY4blc+v3erEnMhMnUQeZAggYS6J/gnxQ3qFTKzO072UWsRK6RUBNgkSpGix8hznyrCd+rTOw/CaICoWe7FFF05scy61y/ICQ1AdXrZR2Yu/+0wW+LKo9H5pMaRBGWTR/jKdDUxvspLINXV2/Tz3VxxdMEwZRWHgf4oclUuU9hdxXGO+KMWgkq4GMi3wx7heFbBuvViEBfCmCNK7avPC9aAwZyqwxC7ZjoiDqE+0MSW9AnZCPBSQxAw=
+          AWS_DEFAULT_REGION: us-east-1
