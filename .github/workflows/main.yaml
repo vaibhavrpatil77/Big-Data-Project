@@ -14,10 +14,10 @@ jobs:
 
       - name: Sync to S3
         run: |
-          aws s3 sync . s3://bigdata113 --acl public-read --delete --exclude '.git*/*'
-        env:
-          AWS_ACCESS_KEY_ID: ASIA3AWNGJFY34UAUGLD
-          AWS_SECRET_ACCESS_KEY: 4kPCTOd0sB9iKWro9IzahWyIZ6PHgYa9sfBmoL3A
+          aws s3 mb s3://bigdata113
 
-          AWS_SESSION_TOKEN:FwoGZXIvYXdzEGUaDMjiS2MmC6clKFcnDCLOAaudktDOe5yZwQYQPuHZTyA0TcHIXkw/9nT9J+XqtDI8FcJ6xM6NI175IQC/YSaeGZpJ9S7+OGUSqMGDYVzTCI3w2dRzpKsgjkRcSqde+nch6Yw2c/4x+Y0HxHn5UhEXevr1GksYaQY+uuW7Pcrcw0zFTQMFJ4AH3Sbi0BZMLq1TpJQ3Y3YpVUypxT92H43oIbcWLyjKtIbf7QFkgIJxv9jLG1L1eGFe3iUAMMvPZxCgXpCGZJjPotQOxq3c9XCjeTpAh3xX4P20O1iVhZqWKKjAna4GMi0rJDyXaftHZGck+J2UmMDv4VhyHAFbLPkc3BYPkYiKafjLehrt1gPo0t5A1go=
-          AWS_DEFAULT_REGION: us-east-1   # Update this to your desired region
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
