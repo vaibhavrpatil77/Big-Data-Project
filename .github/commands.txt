@@ -1,0 +1,46 @@
+cict with git action (program action)
+git action 
+
+how to deploy cict by using git action 
+
+
+
+bigdata113
+
+
+
+https://github.com/Group6bigdataProject/s3new.git
+
+
+
+
+
+
+
+commond
+
+--git add .
+--git commit -m "commmit"
+--git push
+
+
+
+
+aws_access_key_id=ASIA3AWNGJFYWSAATR2T
+aws_secret_access_key=YEmWybLIWgMnfPTz9QqRevd2z4doDPg5KwiuOgba
+
+group666
+
+
+https://github.com/bigdatacrime/crime.git
+
+https://github.com/bigdatacrime/crime2.git
+
+
+
+
+
+
+
+
+https://github.com/bigdatacrime/crime.git
