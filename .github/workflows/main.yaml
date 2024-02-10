@@ -12,18 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Configure AWS credentials
-        run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-          aws configure set aws_session_token $AWS_SESSION_TOKEN
-          aws configure set region $AWS_DEFAULT_REGION
-        env:
-          AWS_ACCESS_KEY_ID: ASIA3AWNGJFYWSAATR2T
-          AWS_SECRET_ACCESS_KEY: YEmWybLIWgMnfPTz9QqRevd2z4doDPg5KwiuOgba
-          AWS_SESSION_TOKEN: FwoGZXIvYXdzEDIaDFMuQjUEj51xSzM+AiLOASdUJ+G2R1D3iSDs1BoCMLWVMrp4SiRoPr5UPeg8lEBwjG2RkNbZxlHTeBjCct9XhSW+EraS9zvuPvJCX8OmilbMzroa8l6ItEGUmY4blc+v3erEnMhMnUQeZAggYS6J/gnxQ3qFTKzO072UWsRK6RUBNgkSpGix8hznyrCd+rTOw/CaICoWe7FFF05scy61y/ICQ1AdXrZR2Yu/+0wW+LKo9H5pMaRBGWTR/jKdDUxvspLINXV2/Tz3VxxdMEwZRWHgf4oclUuU9hdxXGO+KMWgkq4GMi3wx7heFbBuvViEBfCmCNK7avPC9aAwZyqwxC7ZjoiDqE+0MSW9AnZCPBSQxAw=
-          AWS_DEFAULT_REGION: us-east-1   # Update this to your desired region
-
       - name: Sync to S3
         run: |
           aws s3 sync . s3://bigdata113 --acl public-read --delete --exclude '.git*/*'
+        env:
+          AWS_ACCESS_KEY_ID: ASIA3AWNGJFY34UAUGLD
+          AWS_SECRET_ACCESS_KEY: 4kPCTOd0sB9iKWro9IzahWyIZ6PHgYa9sfBmoL3A
+
+          AWS_SESSION_TOKEN:FwoGZXIvYXdzEGUaDMjiS2MmC6clKFcnDCLOAaudktDOe5yZwQYQPuHZTyA0TcHIXkw/9nT9J+XqtDI8FcJ6xM6NI175IQC/YSaeGZpJ9S7+OGUSqMGDYVzTCI3w2dRzpKsgjkRcSqde+nch6Yw2c/4x+Y0HxHn5UhEXevr1GksYaQY+uuW7Pcrcw0zFTQMFJ4AH3Sbi0BZMLq1TpJQ3Y3YpVUypxT92H43oIbcWLyjKtIbf7QFkgIJxv9jLG1L1eGFe3iUAMMvPZxCgXpCGZJjPotQOxq3c9XCjeTpAh3xX4P20O1iVhZqWKKjAna4GMi0rJDyXaftHZGck+J2UmMDv4VhyHAFbLPkc3BYPkYiKafjLehrt1gPo0t5A1go=
+          AWS_DEFAULT_REGION: us-east-1   # Update this to your desired region
