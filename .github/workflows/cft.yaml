@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Resources:
+  SourceBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: group-6-datalakenew
+
+  DestinationBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: group-6-datawarehousenew
+
+  IngestionGlueJob:
+    Type: AWS::Glue::Job
+    DependsOn:
+      - SourceBucket
+      - DestinationBucket
+    Properties:
+      Name: crime-ingestion1
+      Role: arn:aws:iam::385509221169:role/LabRole
+      GlueVersion: '2.0'  # Glue version should be set to 2.0 for AWS Glue 2.0
+      Timeout: 230
+      WorkerType: G.1X
+      NumberOfWorkers: 6
+      Command:
+        Name: glueetl
+        ScriptLocation: s3://inject1w/injesion.py
+      DefaultArguments:
+        "--job-language": "python"
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+
+  TransformationGlueJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: crime-transformation
+      Role: arn:aws:iam::385509221169:role/LabRole
+      GlueVersion: 4.0
+      NumberOfWorkers: 5
+      Timeout: 30
+      WorkerType: G.1X
+      Command:
+        Name: glueetl
+        ScriptLocation: s3://inject1w/transform.py
+      DefaultArguments:
+        "--job-language": "python"
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+
+  GlueWorkflow:
+    Type: AWS::Glue::Workflow
+    Properties:
+      Description: ETL Job
+      MaxConcurrentRuns: 1
+      Name: crime-workflow
+
+  GlueTriggerImport:
+    Type: AWS::Glue::Trigger
+    DependsOn:
+      - GlueWorkflow
+      - IngestionGlueJob
+    Properties:
+      Actions:
+        - JobName: !Ref IngestionGlueJob
+      Description: Triggers the Import Jobs
+      Name: gluetriggerimport
+      Type: EVENT
+      WorkflowName: crime-workflow
+
+  

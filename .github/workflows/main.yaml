@@ -2,26 +2,37 @@ name: combine
 
 on:
   push:
-    branches: main
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v2
-        
-      - name: Deploy CloudFormation stack
+
+      - name: Deploy CloudFormation Stack
         run: |
           aws cloudformation deploy \
-            --stack-name creationstack \
-            --template-file .github/workflows/S3creation.yml \
-            --capabilities CAPABILITY_IAM
+            --stack-name Group6 \
+            --template-file .github/workflows/cft.yml \
+            --capabilities CAPABILITY_NAMED_IAM
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
-          
+      - name: Start glue workflow
+        run: |
+          aws glue start-workflow-run --name crime-workflow
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      
