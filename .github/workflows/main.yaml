@@ -18,7 +18,7 @@ jobs:
         run: |
           aws cloudformation deploy \
             --stack-name Group6 \
-            --template-file .github/workflows/cft.yml \
+            --template-file .github/workflows/cft.yaml \
             --capabilities CAPABILITY_NAMED_IAM
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
