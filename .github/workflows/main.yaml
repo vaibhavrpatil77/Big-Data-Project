@@ -26,15 +26,19 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
 
-      - name: Start glue workflow
+      - name: Start Glue Workflow
         run: |
-          aws glue start-workflow-run --name crime-workflow
+          retry_count=0
+          while [ $retry_count -lt 5 ]; do
+            aws glue start-workflow-run --name crime-workflow && break
+            sleep 60 # wait for 60 seconds before retrying
+            retry_count=$((retry_count + 1))
+          done
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-
 
       - name: Start Crawler
         run: |
@@ -44,5 +48,3 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-
-      
