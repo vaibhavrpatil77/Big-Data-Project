@@ -98,7 +98,7 @@ Resources:
       - GlueTriggerTransform
     Properties:
       Name: data-crawler6
-      DatabaseName: group6# Replace with your desired Glue database name
+      DatabaseName: group6final # Replace with your desired Glue database name
       Targets:
         S3Targets:
           - Path: s3://group-6-datawarehousenew # Specify the path of the bucket you want to crawl
