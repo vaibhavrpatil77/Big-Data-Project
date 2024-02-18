@@ -68,4 +68,23 @@ Resources:
       Type: EVENT
       WorkflowName: crime-workflow
 
-  
+  GlueTriggerTransform:
+    Type: AWS::Glue::Trigger
+    DependsOn:
+      - GlueWorkflow
+      - TransformationGlueJob
+      - GlueTriggerImport
+    Properties:
+      Actions:
+        - JobName: !Ref TransformationGlueJob
+      Description: Triggers the transformation job
+      Name: gluetriggertransform
+      Predicate:
+        Conditions:
+          - JobName: !Ref IngestionGlueJob
+            LogicalOperator: EQUALS
+            State: SUCCEEDED
+        Logical: AND
+      Type: CONDITIONAL
+      StartOnCreation: True
+      WorkflowName: crime-workflow
