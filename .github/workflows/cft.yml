@@ -94,7 +94,6 @@ Resources:
     DependsOn:
       - SourceBucket
       - DestinationBucket
-      - GlueDatabase
       - GlueWorkflow
       - GlueTriggerTransform
     Properties:
