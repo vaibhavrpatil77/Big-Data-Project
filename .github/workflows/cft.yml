@@ -25,7 +25,7 @@ Resources:
       NumberOfWorkers: 12
       Command:
         Name: glueetl
-        ScriptLocation: s3://group-6-datalakenew/scripts/injesion.py
+        ScriptLocation: s3://inject1w/injesion.py
       DefaultArguments:
         "--job-language": "python"
       ExecutionProperty:
@@ -42,7 +42,7 @@ Resources:
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://group-6-datalakenew/scripts/transform.py
+        ScriptLocation: s3://inject1w/transform.py
       DefaultArguments:
         "--job-language": "python"
       ExecutionProperty:
