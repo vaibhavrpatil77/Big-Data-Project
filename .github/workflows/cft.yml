@@ -145,7 +145,6 @@ Resources:
             LogicalOperator: EQUALS
             State: SUCCEEDED
         Logical: AND
-      Type: CONDITIONAL
       StartOnCreation: True
       WorkflowName: crime-workflow
 
@@ -166,6 +165,5 @@ Resources:
             LogicalOperator: EQUALS
             State: SUCCEEDED
         Logical: AND
-      Type: CONDITIONAL
       StartOnCreation: True
       WorkflowName: crime-workflow
