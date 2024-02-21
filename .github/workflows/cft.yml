@@ -89,31 +89,40 @@ Resources:
       StartOnCreation: True
       WorkflowName: crime-workflow
 
-  DataCrawlerOutcomes:
+  GlueDatabase:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: crime6
+
+  DataCrawler1:
     Type: AWS::Glue::Crawler
     DependsOn:
       - SourceBucket
       - DestinationBucket
+      - GlueDatabase
       - GlueWorkflow
       - GlueTriggerTransform
     Properties:
-      Name: data-crawler6
-      DatabaseName: group6final # Replace with your desired Glue database name
+      Name: data-crawler5
+      DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
           - Path: s3://group-6-datawarehousenew/OUTCOMES/ # Specify the path of the bucket you want to crawl
       Role: arn:aws:iam::385509221169:role/LabRole
 
-  DataCrawlerStreet:
+  DataCrawler2:
     Type: AWS::Glue::Crawler
     DependsOn:
       - SourceBucket
       - DestinationBucket
+      - GlueDatabase
       - GlueWorkflow
       - GlueTriggerTransform
     Properties:
-      Name: data-crawler7
-      DatabaseName: group6final # Replace with your desired Glue database name
+      Name: data-crawler6
+      DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
           - Path: s3://group-6-datawarehousenew/STREET/ # Specify the path of the bucket you want to crawl
