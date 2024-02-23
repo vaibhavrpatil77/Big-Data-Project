@@ -128,7 +128,7 @@ Resources:
           - Path: s3://group-6-datawarehousenewrte6dw/STREET/ # Specify the path of the bucket you want to crawl
       Role: arn:aws:iam::385509221169:role/LabRole
 
-  GlueTriggerForCrawler1:
+  GlueTriggerForCrawler111:
     Type: AWS::Glue::Trigger
     DependsOn:
       - GlueTriggerTransform
@@ -148,12 +148,12 @@ Resources:
       StartOnCreation: True
       WorkflowName: crime-workflow111
 
-  GlueTriggerForCrawler2:
+  GlueTriggerForCrawler2111:
     Type: AWS::Glue::Trigger
     DependsOn:
       - GlueTriggerTransform
     Properties:
-      Name: GlueTriggerForCrawler111
+      Name: GlueTriggerForCrawler1111
       Type: CONDITIONAL
       Actions:
         - CrawlerName: !Ref DataCrawler2
