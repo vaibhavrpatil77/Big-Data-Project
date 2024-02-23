@@ -64,7 +64,7 @@ Resources:
       Actions:
         - JobName: !Ref IngestionGlueJob
       Description: Triggers the Import Jobs
-      Name: gluetriggerimport
+      Name: gluetriggerimport1
       Type: EVENT
       WorkflowName: crime-workflow1
 
