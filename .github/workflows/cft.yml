@@ -34,7 +34,7 @@ Resources:
   TransformationGlueJob:
     Type: AWS::Glue::Job
     Properties:
-      Name: crime-transformation
+      Name: crime-transformation1
       Role: arn:aws:iam::385509221169:role/LabRole
       GlueVersion: 4.0
       NumberOfWorkers: 12
@@ -78,7 +78,7 @@ Resources:
       Actions:
         - JobName: !Ref TransformationGlueJob
       Description: Triggers the transformation job
-      Name: gluetriggertransform
+      Name: gluetriggertransform1
       Predicate:
         Conditions:
           - JobName: !Ref IngestionGlueJob
@@ -133,7 +133,7 @@ Resources:
     DependsOn:
       - GlueTriggerTransform
     Properties:
-      Name: GlueTriggerForCrawler1
+      Name: GlueTriggerForCrawler11
       Type: CONDITIONAL
       Actions:
         - CrawlerName: !Ref DataCrawler1
@@ -153,7 +153,7 @@ Resources:
     DependsOn:
       - GlueTriggerTransform
     Properties:
-      Name: GlueTriggerForCrawler2
+      Name: GlueTriggerForCrawler22+
       Type: CONDITIONAL
       Actions:
         - CrawlerName: !Ref DataCrawler2
