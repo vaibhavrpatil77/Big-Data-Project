@@ -4,12 +4,12 @@ Resources:
   SourceBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: group-6-datalakenew
+      BucketName: group-6-datalakenew23re
 
   DestinationBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: group-6-datawarehousenew
+      BucketName: group-6-datawarehousenewrte
 
   IngestionGlueJob:
     Type: AWS::Glue::Job
@@ -25,7 +25,7 @@ Resources:
       NumberOfWorkers: 12
       Command:
         Name: glueetl
-        ScriptLocation: s3://inject1w/injesion.py
+        ScriptLocation: s3://inject111/injesion.py
       DefaultArguments:
         "--job-language": "python"
       ExecutionProperty:
@@ -42,7 +42,7 @@ Resources:
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://inject1w/transform.py
+        ScriptLocation: s3://inject111/transform.py
       DefaultArguments:
         "--job-language": "python"
       ExecutionProperty:
@@ -109,7 +109,7 @@ Resources:
       DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
-          - Path: s3://group-6-datawarehousenew/OUTCOMES/ # Specify the path of the bucket you want to crawl
+          - Path: s3://group-6-datawarehousenewrte/OUTCOMES/ # Specify the path of the bucket you want to crawl
       Role: arn:aws:iam::385509221169:role/LabRole
 
   DataCrawler2:
@@ -125,7 +125,7 @@ Resources:
       DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
-          - Path: s3://group-6-datawarehousenew/STREET/ # Specify the path of the bucket you want to crawl
+          - Path: s3://group-6-datawarehousenewrte/STREET/ # Specify the path of the bucket you want to crawl
       Role: arn:aws:iam::385509221169:role/LabRole
 
   GlueTriggerForCrawler1:
