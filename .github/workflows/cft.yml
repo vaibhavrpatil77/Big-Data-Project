@@ -17,7 +17,7 @@ Resources:
       - SourceBucket
       - DestinationBucket
     Properties:
-      Name: crime-ingestion1
+      Name: crime-ingestion11
       Role: arn:aws:iam::385509221169:role/LabRole
       GlueVersion: '2.0'  # Glue version should be set to 2.0 for AWS Glue 2.0
       Timeout: 230
@@ -53,7 +53,7 @@ Resources:
     Properties:
       Description: ETL Job
       MaxConcurrentRuns: 1
-      Name: crime-workflow
+      Name: crime-workflow1
 
   GlueTriggerImport:
     Type: AWS::Glue::Trigger
@@ -66,7 +66,7 @@ Resources:
       Description: Triggers the Import Jobs
       Name: gluetriggerimport
       Type: EVENT
-      WorkflowName: crime-workflow
+      WorkflowName: crime-workflow1
 
   GlueTriggerTransform:
     Type: AWS::Glue::Trigger
@@ -87,14 +87,14 @@ Resources:
         Logical: AND
       Type: CONDITIONAL
       StartOnCreation: True
-      WorkflowName: crime-workflow
+      WorkflowName: crime-workflow1
 
   GlueDatabase:
     Type: AWS::Glue::Database
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: crime6
+        Name: crime61
 
   DataCrawler1:
     Type: AWS::Glue::Crawler
@@ -105,8 +105,8 @@ Resources:
       - GlueWorkflow
       - GlueTriggerTransform
     Properties:
-      Name: data-crawler5
-      DatabaseName: crime6 # Replace with your desired Glue database name
+      Name: data-crawler51
+      DatabaseName: crime61 # Replace with your desired Glue database name
       Targets:
         S3Targets:
           - Path: s3://group-6-datawarehousenewrte/OUTCOMES/ # Specify the path of the bucket you want to crawl
@@ -121,7 +121,7 @@ Resources:
       - GlueWorkflow
       - GlueTriggerTransform
     Properties:
-      Name: data-crawler6
+      Name: data-crawler61
       DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
@@ -166,4 +166,4 @@ Resources:
             State: SUCCEEDED
         Logical: AND
       StartOnCreation: True
-      WorkflowName: crime-workflow
+      WorkflowName: crime-workflow1
