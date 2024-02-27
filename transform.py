@@ -18,7 +18,7 @@ args = getResolvedOptions(sys.argv, ['JOB_NAME'])  # Use getResolvedOptions to g
 job.init(args['JOB_NAME'], args)
 
 # Read data from S3
-df1 = spark.read.parquet("s3://group-6-datalakenew23re6dl/street/")
+df1 = spark.read.parquet("s3://group-6-datalakenew23re6dlref/street/")
 
 # Perform data processing steps
 header_row = df1.first()
@@ -42,10 +42,10 @@ df1 = df1.withColumn("Latitude", col("Latitude").cast(DoubleType())) \
          .withColumn('MONTH', to_date(col('MONTH'), 'yyyy-MM'))
 
 # Write the DataFrame to Parquet
-df1.write.mode("append").parquet("s3://group-6-datawarehousenewrte6dw/STREET")
+df1.write.mode("append").parquet("s3://group-6-datawarehousenewrte6dwtyyf/STREET")
 
 # Read data from outcomes for transformation
-df2 = spark.read.parquet("s3://group-6-datalakenew23re6dl/outcomes/")
+df2 = spark.read.parquet("s3://group-6-datalakenew23re6dlref/outcomes/")
 df4 = df2.drop("col13","col14","context","crimetype", "partition_0","lastoutcomecategory")
 df2=df4
 df3 = df2.dropna(subset=['Longitude','Latitude'])
@@ -70,7 +70,7 @@ df_repartitioned = df2.repartition(num_partitions)
 df2 = df_repartitioned
 
 # Write the transformed DataFrame to Parquet
-df2.write.mode("append").parquet("s3://group-6-datawarehousenewrte6dw/OUTCOMES")
+df2.write.mode("append").parquet("s3:group-6-datawarehousenewrte6dwtyyf/OUTCOMES")
 
 # Commit the job
 job.commit()
