@@ -70,7 +70,7 @@ df_repartitioned = df2.repartition(num_partitions)
 df2 = df_repartitioned
 
 # Write the transformed DataFrame to Parquet
-df2.write.mode("append").parquet("s3:group-6-datawarehousenewrte6dwtyyf/OUTCOMES")
+df2.write.mode("append").parquet("s3://group-6-datawarehousenewrte6dwtyyf/OUTCOMES")
 
 # Commit the job
 job.commit()
