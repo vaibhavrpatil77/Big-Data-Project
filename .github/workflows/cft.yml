@@ -4,12 +4,12 @@ Resources:
   SourceBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: group-6-datalakenew
+      BucketName: group-6-datalakenew2802
 
   DestinationBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: group-6-datawarehousenew
+      BucketName: group-6-datawarehousenew2802
 
   IngestionGlueJob:
     Type: AWS::Glue::Job
@@ -18,14 +18,14 @@ Resources:
       - DestinationBucket
     Properties:
       Name: crime-ingestion1
-      Role: arn:aws:iam::385509221169:role/LabRole
+      Role: arn:aws:iam::098699701234:role/LabRole
       GlueVersion: '2.0'  # Glue version should be set to 2.0 for AWS Glue 2.0
       Timeout: 230
       WorkerType: G.1X
       NumberOfWorkers: 12
       Command:
         Name: glueetl
-        ScriptLocation: s3://inject1w/injesion.py
+        ScriptLocation: s3://injestionbucket/injesion.py
       DefaultArguments:
         "--job-language": "python"
       ExecutionProperty:
@@ -35,14 +35,14 @@ Resources:
     Type: AWS::Glue::Job
     Properties:
       Name: crime-transformation
-      Role: arn:aws:iam::385509221169:role/LabRole
+      Role: arn:aws:iam::098699701234:role/LabRole
       GlueVersion: 4.0
       NumberOfWorkers: 12
       Timeout: 30
       WorkerType: G.1X
       Command:
         Name: glueetl
-        ScriptLocation: s3://inject1w/transform.py
+        ScriptLocation: s3://injestionbucket/transform.py
       DefaultArguments:
         "--job-language": "python"
       ExecutionProperty:
@@ -109,8 +109,8 @@ Resources:
       DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
-          - Path: s3://group-6-datawarehousenew/OUTCOMES/ # Specify the path of the bucket you want to crawl
-      Role: arn:aws:iam::385509221169:role/LabRole
+          - Path: s3://group-6-datawarehousenew2802/OUTCOMES/ # Specify the path of the bucket you want to crawl
+      Role: arn:aws:iam::098699701234:role/LabRole
 
   DataCrawler2:
     Type: AWS::Glue::Crawler
@@ -125,8 +125,8 @@ Resources:
       DatabaseName: crime6 # Replace with your desired Glue database name
       Targets:
         S3Targets:
-          - Path: s3://group-6-datawarehousenew/STREET/ # Specify the path of the bucket you want to crawl
-      Role: arn:aws:iam::385509221169:role/LabRole
+          - Path: s3://group-6-datawarehousenew2802/STREET/ # Specify the path of the bucket you want to crawl
+      Role: arn:aws:iam::098699701234:role/LabRole
 
   GlueTriggerForCrawler1:
     Type: AWS::Glue::Trigger
