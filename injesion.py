@@ -35,11 +35,7 @@ df4 = df3.withColumnRenamed("Crime ID","CrimeID") \
          .withColumnRenamed("LSOA name","LSOANAME")
 
 # Write to Parquet
-<<<<<<< HEAD
 df4.coalesce(1).write.parquet("s3://group-6-datalakenew2802/street/", mode="append")
-=======
-df4.coalesce(1).write.parquet("s3://group-6-datalakenew23re6dlref/street/", mode="append")
->>>>>>> a1dc1ec93ae1c776f0c96759caea8df78d494032
 
 # Fetching data from RDS
 # Read data from RDS using Glue Catalog
@@ -65,11 +61,7 @@ df2 = rds_df.withColumnRenamed("Crime ID","CrimeID") \
          .withColumnRenamed("last outcome category","lastoutcomecategory")
 
 # Write to Parquet
-<<<<<<< HEAD
 df2.repartition(90).write.parquet("s3://group-6-datalakenew2802/outcomes/", mode="append")
-=======
-df2.repartition(90).write.parquet("s3://group-6-datalakenew23re6dlref/outcomes/", mode="append")
->>>>>>> a1dc1ec93ae1c776f0c96759caea8df78d494032
 
 # Stop SparkSession
 spark.stop()
