@@ -16,7 +16,7 @@ jobs:
       - name: Deploy CloudFormation Stack
         run: |
           aws cloudformation deploy \
-            --stack-name Group6 \
+            --stack-name Group6demoFlast \
             --template-file .github/workflows/cft.yml \
             --capabilities CAPABILITY_NAMED_IAM
         env:
@@ -31,7 +31,7 @@ jobs:
         run: |
           retry_count=0
           while [ $retry_count -lt 5 ]; do
-            aws glue start-workflow-run --name crime-workflow && break
+            aws glue start-workflow-run --name crime-workflow111f && break
             sleep 60 # wait for 60 seconds before retrying
             retry_count=$((retry_count + 1))
           done
